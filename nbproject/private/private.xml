@@ -5,8 +5,15 @@
         <group>
             <file>file:/C:/Users/Christian/Documents/NetBeansProjects/Puntoventa/src/Vistas/Login.java</file>
             <file>file:/C:/Users/Christian/Documents/NetBeansProjects/Puntoventa/src/Vistas/Principal.java</file>
+<<<<<<< HEAD
             <file>file:/C:/Users/Christian/Documents/NetBeansProjects/Puntoventa/src/Modelo/ArticulosDB.java</file>
             <file>file:/C:/Users/Christian/Documents/NetBeansProjects/Puntoventa/src/Modelo/Articulos.java</file>
+=======
+            <file>file:/C:/Users/Christian/Documents/NetBeansProjects/Puntoventa/src/Modelo/Cliente.java</file>
+            <file>file:/C:/Users/Christian/Documents/NetBeansProjects/Puntoventa/src/Modelo/ArticulosDB.java</file>
+            <file>file:/C:/Users/Christian/Documents/NetBeansProjects/Puntoventa/src/Modelo/Articulos.java</file>
+            <file>file:/C:/Users/Christian/Documents/NetBeansProjects/Puntoventa/src/Modelo/ClienteDB.java</file>
+>>>>>>> 03ec20c (actualizacion)
         </group>
     </open-files>
 </project-private>

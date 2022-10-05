@@ -107,6 +107,7 @@ public class Articulos {
             ps.setInt(4, artDB.getIngresa());
             ps.setString(5, artDB.getDescripcion());
             ps.setDouble(6, artDB.getPrecio());
+            ps.setString(7, artDB.getCodigo());
             ps.execute();
             return true;
         } catch (SQLException e) {

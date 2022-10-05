@@ -6,6 +6,8 @@ package Vistas;
 
 import Modelo.Articulos;
 import Modelo.ArticulosDB;
+import Modelo.Cliente;
+import Modelo.ClienteDB;
 import Modelo.Proveedores;
 import Modelo.ProveedoresDB;
 import javax.swing.JOptionPane;
@@ -13,17 +15,20 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
-
 /**
  *
  * @author Christian
  */
 public class Principal extends javax.swing.JFrame {
+
+    Cliente cls = new Cliente();
+    ClienteDB clsDB = new ClienteDB();
     Articulos art = new Articulos();
     ArticulosDB artDB = new ArticulosDB();
     Proveedores pro = new Proveedores();
     ProveedoresDB proBD = new ProveedoresDB();
     DefaultTableModel modelo = new DefaultTableModel();
+
     /**
      * Creates new form Principal
      */
@@ -33,8 +38,24 @@ public class Principal extends javax.swing.JFrame {
         AutoCompleteDecorator.decorate(CboxArticuloProveedor);
         art.listarproveedor(CboxArticuloProveedor);
     }
-    
-    public void listaproveedor(){
+
+    public void listacliente() {
+        List<ClienteDB> listclBDs = cls.listarClientes();
+        modelo = (DefaultTableModel) tblClientes.getModel();
+        Object[] obj = new Object[7];
+        for (int i = 0; i < listclBDs.size(); i++) {
+            obj[0] = listclBDs.get(i).getDPI();
+            obj[1] = listclBDs.get(i).getNombre();
+            obj[2] = listclBDs.get(i).getDireccion_envio();
+            obj[3] = listclBDs.get(i).getTelefono();
+            obj[4] = listclBDs.get(i).getSaldo();
+            obj[5] = listclBDs.get(i).getLimite_credito();
+            obj[6] = listclBDs.get(i).getDescuento();
+            modelo.addRow(obj);
+        }
+        tblClientes.setModel(modelo);
+    }
+    public void listaproveedor() {
         List<ProveedoresDB> listprBDs = pro.listarprov();
         modelo = (DefaultTableModel) tblproveedor.getModel();
         Object[] obj = new Object[5];
@@ -48,8 +69,8 @@ public class Principal extends javax.swing.JFrame {
         }
         tblproveedor.setModel(modelo);
     }
-    
-    public void listarticulos(){
+
+    public void listarticulos() {
         List<ArticulosDB> listartBD = art.listararticulos();
         modelo = (DefaultTableModel) tblArticulos.getModel();
         Object[] obj = new Object[6];
@@ -64,11 +85,11 @@ public class Principal extends javax.swing.JFrame {
         }
         tblArticulos.setModel(modelo);
     }
-    
-    public void cleantable(){
+
+    public void cleantable() {
         for (int i = 0; i < modelo.getRowCount(); i++) {
             modelo.removeRow(i);
-            i=i-1;
+            i = i - 1;
         }
     }
 
@@ -161,12 +182,12 @@ public class Principal extends javax.swing.JFrame {
         tblproveedor = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
-        jButton11 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
+        btnClienteEliminar = new javax.swing.JButton();
+        btnClienteActualizar = new javax.swing.JButton();
+        btnClienteGuardar = new javax.swing.JButton();
+        btnClientelimpiar = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        txtClienteCodigo = new javax.swing.JTextField();
+        txtClienteDPI = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         txtClienteDireccion = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
@@ -180,7 +201,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel39 = new javax.swing.JLabel();
         txtClienteNombre = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable5 = new javax.swing.JTable();
@@ -249,6 +270,11 @@ public class Principal extends javax.swing.JFrame {
         btnNuevoPedido.setText("Nuevo Pedido");
 
         btnClientes.setText("Clientes");
+        btnClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientesActionPerformed(evt);
+            }
+        });
 
         btnProveedor.setText("Proveedor");
         btnProveedor.addActionListener(new java.awt.event.ActionListener() {
@@ -358,6 +384,11 @@ public class Principal extends javax.swing.JFrame {
         btnLimpiarArticulo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnLimpiarArticulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/pagina-web.png"))); // NOI18N
         btnLimpiarArticulo.setText("Limpiar");
+        btnLimpiarArticulo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarArticuloActionPerformed(evt);
+            }
+        });
 
         btnGuardarArticulo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         btnGuardarArticulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/salvar.png"))); // NOI18N
@@ -823,8 +854,10 @@ public class Principal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btneliminarproveedor))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(txtProveedor_codigo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -915,50 +948,77 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel11.setBackground(new java.awt.Color(51, 255, 204));
 
-        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/eliminar.png"))); // NOI18N
-        jButton11.setText("Eliminar");
-        jButton11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/actualizar.png"))); // NOI18N
-        jButton10.setText("Actualizar");
-        jButton10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/salvar.png"))); // NOI18N
-        jButton9.setText("Guardar");
-        jButton9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/pagina-web.png"))); // NOI18N
-        jButton12.setText("Limpiar");
-        jButton12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
+        btnClienteEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/eliminar.png"))); // NOI18N
+        btnClienteEliminar.setText("Eliminar");
+        btnClienteEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClienteEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
+                btnClienteEliminarActionPerformed(evt);
+            }
+        });
+
+        btnClienteActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/actualizar.png"))); // NOI18N
+        btnClienteActualizar.setText("Actualizar");
+        btnClienteActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClienteActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClienteActualizarActionPerformed(evt);
+            }
+        });
+
+        btnClienteGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/salvar.png"))); // NOI18N
+        btnClienteGuardar.setText("Guardar");
+        btnClienteGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClienteGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClienteGuardarActionPerformed(evt);
+            }
+        });
+
+        btnClientelimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/pagina-web.png"))); // NOI18N
+        btnClientelimpiar.setText("Limpiar");
+        btnClientelimpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnClientelimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientelimpiarActionPerformed(evt);
             }
         });
 
         jLabel11.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel11.setText("Codigo cliente");
+        jLabel11.setText("DPI cliente");
+
+        txtClienteDPI.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
 
         jLabel12.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Direccion de envio");
 
+        txtClienteDireccion.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+
         jLabel13.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("Saldo");
+
+        txtClienteSaldo.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
 
         jLabel14.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("Limite de credito");
 
+        txtClienteCredito.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+
         jLabel15.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Descuento");
 
+        txtClienteDescuento.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+
         jLabel16.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Telefono");
+
+        txtClienteTelefono.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
 
         jLabel39.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel39.setForeground(new java.awt.Color(0, 0, 0));
@@ -966,63 +1026,12 @@ public class Principal extends javax.swing.JFrame {
 
         txtClienteNombre.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Codigo cliente", "Nombre cliente", "Direccion envio", "Saldo", "Limite Credito", "Descuento", "Telefono"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setPreferredWidth(30);
-            jTable2.getColumnModel().getColumn(1).setPreferredWidth(60);
-            jTable2.getColumnModel().getColumn(2).setPreferredWidth(60);
-            jTable2.getColumnModel().getColumn(3).setPreferredWidth(20);
-            jTable2.getColumnModel().getColumn(4).setPreferredWidth(20);
-            jTable2.getColumnModel().getColumn(5).setPreferredWidth(20);
-            jTable2.getColumnModel().getColumn(6).setPreferredWidth(10);
-        }
-
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel11Layout.createSequentialGroup()
-                                .addGap(110, 110, 110)
-                                .addComponent(txtClienteNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel11Layout.createSequentialGroup()
-                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(txtClienteCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel11Layout.createSequentialGroup()
-                                        .addGap(229, 229, 229)
-                                        .addComponent(jLabel12))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 228, Short.MAX_VALUE)
-                                        .addComponent(txtClienteDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtClienteSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel11Layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addComponent(jLabel39)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtClienteTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel11Layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jLabel16)
-                                .addGap(39, 39, 39)))
-                        .addGap(88, 88, 88))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel11Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1033,15 +1042,47 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(txtClienteDescuento, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton12)
+                        .addComponent(btnClientelimpiar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnClienteGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton10)
+                        .addComponent(btnClienteActualizar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton11)))
+                        .addComponent(btnClienteEliminar))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(txtClienteDPI, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 201, Short.MAX_VALUE)
+                                        .addComponent(txtClienteDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel11Layout.createSequentialGroup()
+                                        .addGap(17, 17, 17)
+                                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtClienteNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                                .addComponent(jLabel39)
+                                                .addGap(99, 99, 99)
+                                                .addComponent(jLabel12)))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtClienteSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel11Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtClienteTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel11Layout.createSequentialGroup()
+                                        .addGap(3, 3, 3)
+                                        .addComponent(jLabel16)
+                                        .addGap(39, 39, 39)))
+                                .addGap(88, 88, 88)))))
                 .addGap(30, 30, 30))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1055,7 +1096,7 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(jLabel39))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtClienteCodigo)
+                            .addComponent(txtClienteDPI)
                             .addComponent(txtClienteDireccion)
                             .addComponent(txtClienteNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)))
                     .addGroup(jPanel11Layout.createSequentialGroup()
@@ -1070,10 +1111,10 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton12)
-                            .addComponent(jButton9)
-                            .addComponent(jButton10)
-                            .addComponent(jButton11)))
+                            .addComponent(btnClientelimpiar)
+                            .addComponent(btnClienteGuardar)
+                            .addComponent(btnClienteActualizar)
+                            .addComponent(btnClienteEliminar)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1083,18 +1124,42 @@ public class Principal extends javax.swing.JFrame {
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtClienteDescuento, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                             .addComponent(txtClienteCredito))))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "DPI cliente", "Nombre cliente", "Direccion envio", "Saldo", "Limite Credito", "Descuento", "Telefono"
+            }
+        ));
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClientesMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tblClientes);
+        if (tblClientes.getColumnModel().getColumnCount() > 0) {
+            tblClientes.getColumnModel().getColumn(0).setPreferredWidth(30);
+            tblClientes.getColumnModel().getColumn(1).setPreferredWidth(60);
+            tblClientes.getColumnModel().getColumn(2).setPreferredWidth(60);
+            tblClientes.getColumnModel().getColumn(3).setPreferredWidth(20);
+            tblClientes.getColumnModel().getColumn(4).setPreferredWidth(20);
+            tblClientes.getColumnModel().getColumn(5).setPreferredWidth(20);
+            tblClientes.getColumnModel().getColumn(6).setPreferredWidth(10);
+        }
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -1102,7 +1167,9 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("tab4", jPanel4);
@@ -1629,9 +1696,10 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+    private void btnClientelimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientelimpiarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton12ActionPerformed
+        cleanclientes();
+    }//GEN-LAST:event_btnClientelimpiarActionPerformed
 
     private void btnguardarproveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarproveedorActionPerformed
         // TODO add your handling code here:
@@ -1643,7 +1711,7 @@ public class Principal extends javax.swing.JFrame {
             proBD.setFabrica(cbxProveedorfabrica.getSelectedItem().toString());
             pro.RegistroProv(proBD);
             JOptionPane.showMessageDialog(null, "proveedor registrado con exito");
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Rellene todos los campos");
         }
     }//GEN-LAST:event_btnguardarproveedorActionPerformed
@@ -1666,7 +1734,7 @@ public class Principal extends javax.swing.JFrame {
             artDB.setPrecio(Double.parseDouble(txtArticuloPrecio.getText()));
             art.registroarticulos(artDB);
             JOptionPane.showMessageDialog(null, "articulo registrado con exito");
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "llene todos los campos");
         }
     }//GEN-LAST:event_btnGuardarArticuloActionPerformed
@@ -1705,24 +1773,107 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnActualizarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarArticuloActionPerformed
         // TODO add your handling code here:
-        if (!"".equals(txtArticuloCodigo.getText())) {
-            JOptionPane.showConfirmDialog(null, "Seleccione un articulo");            
-            }else{
+        if ("".equals(txtArticuloCodigo.getText())) {
+            JOptionPane.showConfirmDialog(null, "Seleccione un articulo");
+        } else {
             if (!"".equals(txtArticuloCodigo.getText()) || !"".equals(txtArticuloNombre.getText()) || !"".equals(CboxArticuloProveedor.getSelectedItem()) || !"".equals(txtArticuloIngresa.getText()) || !"".equals(txtArticuloDescrip.getText()) || !"".equals(txtArticuloPrecio.getText())) {
-            artDB.setCodigo(txtArticuloCodigo.getText());
-            artDB.setNombre(txtArticuloNombre.getText());
-            artDB.setProveedor(CboxArticuloProveedor.getSelectedItem().toString());
-            artDB.setIngresa(Integer.parseInt(txtArticuloIngresa.getText()));
-            artDB.setDescripcion(txtArticuloDescrip.getText());
-            artDB.setPrecio(Double.parseDouble(txtArticuloPrecio.getText()));
-            art.actualizararticulo(artDB);
-            JOptionPane.showMessageDialog(null, "articulo actualizado con exito");
-            cleantable();
-            cleanArticulos();
-            listarticulos();
-            }            
+                artDB.setCodigo(txtArticuloCodigo.getText());
+                artDB.setNombre(txtArticuloNombre.getText());
+                artDB.setProveedor(CboxArticuloProveedor.getSelectedItem().toString());
+                artDB.setIngresa(Integer.parseInt(txtArticuloIngresa.getText()));
+                artDB.setDescripcion(txtArticuloDescrip.getText());
+                artDB.setPrecio(Double.parseDouble(txtArticuloPrecio.getText()));
+                artDB.setCodigo(txtArticuloCodigo.getText());
+                art.actualizararticulo(artDB);
+                cleantable();
+                cleanArticulos();
+                listarticulos();
+                JOptionPane.showMessageDialog(null, "articulo actualizado con exito");                
+            }
         }
     }//GEN-LAST:event_btnActualizarArticuloActionPerformed
+
+    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
+        // TODO add your handling code here:
+        cleantable();
+        listacliente();
+        jTabbedPane1.setSelectedIndex(3);
+    }//GEN-LAST:event_btnClientesActionPerformed
+
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
+        // TODO add your handling code here:
+        int fila = tblClientes.rowAtPoint(evt.getPoint());
+        txtClienteDPI.setText(tblClientes.getValueAt(fila, 0).toString());
+        txtClienteNombre.setText(tblClientes.getValueAt(fila, 1).toString());
+        txtClienteDireccion.setText(tblClientes.getValueAt(fila, 2).toString());
+        txtClienteTelefono.setText(tblClientes.getValueAt(fila, 3).toString());
+        txtClienteSaldo.setText(tblClientes.getValueAt(fila, 4).toString());
+        txtClienteCredito.setText(tblClientes.getValueAt(fila, 5).toString());
+        txtClienteDescuento.setText(tblClientes.getValueAt(fila, 6).toString());
+    }//GEN-LAST:event_tblClientesMouseClicked
+
+    private void btnClienteEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteEliminarActionPerformed
+        // TODO add your handling code here:
+        if (!"".equals(txtClienteDPI.getText())) {
+            int question = JOptionPane.showConfirmDialog(null, "Esta seguro de eliminar al cliente");
+            if (question == 0) {
+                String DPI = (txtClienteDPI.getText());
+                cls.deletcliente(DPI);
+                cleantable();
+                cleanclientes();
+                listacliente();
+            }
+        }
+    }//GEN-LAST:event_btnClienteEliminarActionPerformed
+
+    private void btnClienteGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteGuardarActionPerformed
+        // TODO add your handling code here:
+        if (!"".equals(txtClienteDPI.getText()) || !"".equals(txtClienteNombre.getText()) || !"".equals(txtClienteDireccion.getText()) || !"".equals(txtClienteTelefono.getText()) || !"".equals(txtClienteCredito.getText()) || !"".equals(txtClienteDescuento.getText())) {
+            clsDB.setDPI(txtClienteDPI.getText());
+            clsDB.setNombre(txtClienteNombre.getText());
+            clsDB.setDireccion_envio(txtClienteDireccion.getText());
+            clsDB.setTelefono(Integer.parseInt(txtClienteTelefono.getText()));
+            clsDB.setSaldo(Double.parseDouble(txtClienteSaldo.getText()));
+            clsDB.setLimite_credito(Integer.parseInt(txtClienteCredito.getText()));
+            clsDB.setDescuento(Double.parseDouble(txtClienteDescuento.getText()));
+            cls.registroclientes(clsDB);
+            cleantable();
+            listacliente();
+            JOptionPane.showMessageDialog(null, "Cliente agregado exitosamente");
+        } else {
+            JOptionPane.showMessageDialog(null, "llene los campos vacios");
+        }
+    }//GEN-LAST:event_btnClienteGuardarActionPerformed
+
+    private void btnClienteActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActualizarActionPerformed
+        // TODO add your handling code here:
+        if ("".equals(txtClienteDPI.getText())) {
+            JOptionPane.showConfirmDialog(null, "Tiene campos vacios");
+        } else {
+            if (!"".equals(txtClienteNombre.getText()) || !"".equals(txtClienteNombre.getText()) || !"".equals(txtClienteDireccion.getText()) || !"".equals(txtClienteTelefono.getText()) || !"".equals(txtClienteSaldo.getText()) || !"".equals(txtClienteCredito.getText()) || !"".equals(txtClienteDescuento.getText())) {
+                clsDB.setDescuento(Double.parseDouble(txtClienteDescuento.getText()));
+                clsDB.setNombre(txtClienteNombre.getText());
+                clsDB.setDireccion_envio(txtClienteDireccion.getText());
+                clsDB.setTelefono(Integer.parseInt(txtClienteTelefono.getText()));
+                clsDB.setSaldo(Double.parseDouble(txtClienteSaldo.getText()));
+                clsDB.setLimite_credito(Integer.parseInt(txtClienteCredito.getText()));
+                clsDB.setDescuento(Double.parseDouble(txtClienteDescuento.getText()));
+                clsDB.setDPI(txtClienteDPI.getText());
+                cls.actualircliente(clsDB);
+                cleanclientes();
+                cleantable();                
+                listacliente();
+                JOptionPane.showMessageDialog(null, "articulo actualizado con exito");                
+            } else {
+                JOptionPane.showMessageDialog(null, "No ha seleccionado ningun cliente");
+            }
+        }
+    }//GEN-LAST:event_btnClienteActualizarActionPerformed
+
+    private void btnLimpiarArticuloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarArticuloActionPerformed
+        // TODO add your handling code here:
+        cleanArticulos();
+    }//GEN-LAST:event_btnLimpiarArticuloActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1763,6 +1914,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> CboxArticuloProveedor;
     private javax.swing.JButton btnActualizarArticulo;
     private javax.swing.JButton btnArticulos;
+    private javax.swing.JButton btnClienteActualizar;
+    private javax.swing.JButton btnClienteEliminar;
+    private javax.swing.JButton btnClienteGuardar;
+    private javax.swing.JButton btnClientelimpiar;
     private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnEliminarArticulo;
     private javax.swing.JButton btnFabricas;
@@ -1778,9 +1933,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnguardarproveedor;
     private javax.swing.JButton btnlimpiarproveedor;
     private javax.swing.JComboBox<String> cbxProveedorfabrica;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton22;
     private javax.swing.JButton jButton23;
     private javax.swing.JButton jButton24;
@@ -1795,7 +1947,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton33;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1867,7 +2018,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
     private javax.swing.JTable jTable7;
@@ -1879,14 +2029,15 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField23;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTable tblArticulos;
+    private javax.swing.JTable tblClientes;
     private javax.swing.JTable tblproveedor;
     private javax.swing.JTextField txtArticuloCodigo;
     private javax.swing.JTextField txtArticuloDescrip;
     private javax.swing.JTextField txtArticuloIngresa;
     private javax.swing.JTextField txtArticuloNombre;
     private javax.swing.JTextField txtArticuloPrecio;
-    private javax.swing.JTextField txtClienteCodigo;
     private javax.swing.JTextField txtClienteCredito;
+    private javax.swing.JTextField txtClienteDPI;
     private javax.swing.JTextField txtClienteDescuento;
     private javax.swing.JTextField txtClienteDireccion;
     private javax.swing.JTextField txtClienteNombre;
@@ -1915,7 +2066,17 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField txtUsuarioPassword;
     // End of variables declaration//GEN-END:variables
 
-    private void cleanArticulos(){
+    private void cleanclientes() {
+        txtClienteDPI.setText("");
+        txtClienteNombre.setText("");
+        txtClienteDireccion.setText("");
+        txtClienteTelefono.setText("");
+        txtClienteSaldo.setText("");
+        txtClienteCredito.setText("");
+        txtClienteDescuento.setText("");
+    }
+
+    private void cleanArticulos() {
         txtArticuloCodigo.setText("");
         txtArticuloNombre.setText("");
         CboxArticuloProveedor.setSelectedItem(null);
