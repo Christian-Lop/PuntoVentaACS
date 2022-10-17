@@ -27,8 +27,10 @@ public class Login extends javax.swing.JFrame {
             lg = logCON.lg(correo, password);
             if (lg.getCorreo() != null && lg.getPassword()!= null) {
                 Principal principal = new Principal();
+                principal.listarticulos();
                 principal.setVisible(true);
-                dispose();
+                              
+                dispose();                                
             }else{
                 JOptionPane.showMessageDialog(null, "datos las ingresados");
             }

@@ -22,11 +22,11 @@ public class Cliente {
     ResultSet rs;
     
     public boolean registroclientes (ClienteDB cls){
-        String mysql = "INSERT INTO clientes (DPI, nombre, direccion_envio, telefono, saldo, limite_credito, descuento) VALUE (?,?,?,?,?,?,?)";
+        String mysql = "INSERT INTO clientes (NIT, nombre, direccion_envio, telefono, saldo, limite_credito, descuento) VALUE (?,?,?,?,?,?,?)";
         try {
             con = cnx.getConnection();
             ps = con.prepareStatement(mysql);
-            ps.setString(1, cls.getDPI());
+            ps.setString(1, cls.getNIT());
             ps.setString(2, cls.getNombre());
             ps.setString(3, cls.getDireccion_envio());
             ps.setInt(4, cls.getTelefono());
@@ -50,7 +50,7 @@ public class Cliente {
             rs = ps.executeQuery();
             while (rs.next()) {                
                 ClienteDB clsDB = new ClienteDB();
-                clsDB.setDPI(rs.getString("DPI"));
+                clsDB.setNIT(rs.getString("NIT"));
                 clsDB.setNombre(rs.getString("nombre"));
                 clsDB.setDireccion_envio(rs.getString("direccion_envio"));
                 clsDB.setTelefono(rs.getInt("telefono"));
@@ -66,11 +66,11 @@ public class Cliente {
     }
     
     
-    public boolean deletcliente(String DPI){
-        String mysql = "DELETE FROM clientes WHERE DPI = ?";
+    public boolean deletcliente(String NIT){
+        String mysql = "DELETE FROM clientes WHERE NIT = ?";
         try {
             ps = con.prepareStatement(mysql);
-            ps.setString(1, DPI);
+            ps.setString(1, NIT);
             ps.execute();
             return true;
         } catch (SQLException e) {
@@ -86,18 +86,18 @@ public class Cliente {
     }
        
     public boolean actualircliente(ClienteDB clsDB){
-        String mysql = "UPDATE clientes SET DPI = ?, nombre = ?, direccion_envio = ?, telefono = ?, saldo = ?, limite_credito = ?, descuento = ? WHERE DPI = ?";
+        String mysql = "UPDATE clientes SET NIT = ?, nombre = ?, direccion_envio = ?, telefono = ?, saldo = ?, limite_credito = ?, descuento = ? WHERE NIT = ?";
         try {
             con = cnx.getConnection();
             ps = con.prepareStatement(mysql);
-            ps.setString(1, clsDB.getDPI());
+            ps.setString(1, clsDB.getNIT());
             ps.setString(2, clsDB.getNombre());
             ps.setString(3, clsDB.getDireccion_envio());
             ps.setInt(4, clsDB.getTelefono());
             ps.setDouble(5, clsDB.getSaldo());
             ps.setInt(6, clsDB.getLimite_credito());
             ps.setDouble(7, clsDB.getDescuento());
-            ps.setString(8, clsDB.getDPI());
+            ps.setString(8, clsDB.getNIT());
             ps.execute();
             return true;
         } catch (SQLException e) {

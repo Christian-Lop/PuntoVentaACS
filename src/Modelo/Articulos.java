@@ -77,11 +77,11 @@ public class Articulos {
         return listart;
     }
     
-    public boolean deletarticulo(int codigo){
+    public boolean deletarticulo(String codigo){
         String mysql = "DELETE FROM articulos WHERE codigo = ?";
         try {
             ps = con.prepareStatement(mysql);
-            ps.setInt(1, codigo);
+            ps.setString(1, codigo);
             ps.execute();
             return true;
         } catch (SQLException e) {

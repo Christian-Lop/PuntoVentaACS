@@ -9,7 +9,6 @@ package Modelo;
  * @author Christian
  */
 public class ProveedoresDB {
-    private int id;
     private int NIT;
     private String nombre;
     private int telefono;
@@ -19,21 +18,12 @@ public class ProveedoresDB {
     public ProveedoresDB() {
     }
 
-    public ProveedoresDB(int id, int NIT, String nombre, int telefono, String direccion, String fabrica) {
-        this.id = id;
+    public ProveedoresDB(int NIT, String nombre, int telefono, String direccion, String fabrica) {
         this.NIT = NIT;
         this.nombre = nombre;
         this.telefono = telefono;
         this.direccion = direccion;
         this.fabrica = fabrica;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getNIT() {
@@ -75,6 +65,7 @@ public class ProveedoresDB {
     public void setFabrica(String fabrica) {
         this.fabrica = fabrica;
     }
+
     
     
 }

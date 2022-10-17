@@ -9,7 +9,7 @@ package Modelo;
  * @author Christian
  */
 public class ClienteDB {
-    private String DPI;
+    private String NIT;
     private String nombre;
     private String direccion_envio;
     private int telefono;
@@ -20,8 +20,8 @@ public class ClienteDB {
     public ClienteDB() {
     }
 
-    public ClienteDB(String DPI, String nombre, String direccion_envio, int telefono, double saldo, int limite_credito, double descuento) {
-        this.DPI = DPI;
+    public ClienteDB(String NIT, String nombre, String direccion_envio, int telefono, double saldo, int limite_credito, double descuento) {
+        this.NIT = NIT;
         this.nombre = nombre;
         this.direccion_envio = direccion_envio;
         this.telefono = telefono;
@@ -30,12 +30,12 @@ public class ClienteDB {
         this.descuento = descuento;
     }
 
-    public String getDPI() {
-        return DPI;
+    public String getNIT() {
+        return NIT;
     }
 
-    public void setDPI(String DPI) {
-        this.DPI = DPI;
+    public void setNIT(String NIT) {
+        this.NIT = NIT;
     }
 
     public String getNombre() {
@@ -85,4 +85,6 @@ public class ClienteDB {
     public void setDescuento(double descuento) {
         this.descuento = descuento;
     }
+
+    
 }

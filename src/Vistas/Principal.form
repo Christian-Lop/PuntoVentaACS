@@ -126,6 +126,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Nuevo Pedido"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevoPedidoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnClientes">
           <Properties>
@@ -147,11 +150,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Pedidos"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPedidosActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnFabricas">
           <Properties>
             <Property name="text" type="java.lang.String" value="Fabricas"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFabricasActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel21">
           <Properties>
@@ -174,11 +183,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Informacion"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInformacionActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnUsuarios">
           <Properties>
             <Property name="text" type="java.lang.String" value="Usuarios"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUsuariosActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnArticulos">
           <Properties>
@@ -1080,7 +1095,7 @@
                                           <Component id="jLabel22" min="-2" pref="110" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
-                                      <Component id="txtProveedor_codigo" max="32767" attributes="0"/>
+                                      <Component id="txtProveedor_NIT" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -1099,7 +1114,7 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace pref="19" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1115,7 +1130,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtProveedor_codigo" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="txtProveedor_NIT" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="txtProveedor_nombre" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="txtProveedor_telefono" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="txtProveedor_direccion" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -1153,7 +1168,7 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Codigo proveedor"/>
+                    <Property name="text" type="java.lang.String" value="NIT proveedor"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel23">
@@ -1189,7 +1204,7 @@
                     <Property name="text" type="java.lang.String" value="Direcci&#xf3;n"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtProveedor_codigo">
+                <Component class="javax.swing.JTextField" name="txtProveedor_NIT">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="1"/>
@@ -1224,6 +1239,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Limpiar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnlimpiarproveedorActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnguardarproveedor">
                   <Properties>
@@ -1243,6 +1261,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Actualizar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnactualizarproveedorActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btneliminarproveedor">
                   <Properties>
@@ -1286,7 +1307,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="tblproveedor">
+                <Component class="javax.swing.JTable" name="tblProveedor">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="5" rowCount="0">
@@ -1330,6 +1351,9 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblProveedorMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1411,7 +1435,7 @@
                                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtClienteDPI" min="-2" pref="112" max="-2" attributes="0"/>
+                                      <Component id="txtClienteNIT" min="-2" pref="112" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
@@ -1471,7 +1495,7 @@
                                   </Group>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="txtClienteDPI" max="32767" attributes="0"/>
+                                      <Component id="txtClienteNIT" max="32767" attributes="0"/>
                                       <Component id="txtClienteDireccion" max="32767" attributes="0"/>
                                       <Component id="txtClienteNombre" pref="28" max="32767" attributes="0"/>
                                   </Group>
@@ -1580,10 +1604,10 @@
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="0" type="rgb"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="DPI cliente"/>
+                    <Property name="text" type="java.lang.String" value="NIT cliente"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtClienteDPI">
+                <Component class="javax.swing.JTextField" name="txtClienteNIT">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="1"/>
@@ -1714,10 +1738,10 @@
                         <Column editable="true" title="DPI cliente" type="java.lang.Object"/>
                         <Column editable="true" title="Nombre cliente" type="java.lang.Object"/>
                         <Column editable="true" title="Direccion envio" type="java.lang.Object"/>
+                        <Column editable="true" title="Telefono" type="java.lang.Object"/>
                         <Column editable="true" title="Saldo" type="java.lang.Object"/>
                         <Column editable="true" title="Limite Credito" type="java.lang.Object"/>
                         <Column editable="true" title="Descuento" type="java.lang.Object"/>
-                        <Column editable="true" title="Telefono" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -1737,22 +1761,22 @@
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="20" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="20" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="20" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="10" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="20" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="20" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="20" resizable="true">
                           <Title/>
                           <Editor/>
                           <Renderer/>
@@ -1817,7 +1841,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable5">
+                <Component class="javax.swing.JTable" name="tblFabricas">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="4" rowCount="0">
@@ -1855,6 +1879,9 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblFabricasMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1895,13 +1922,13 @@
                           </Group>
                           <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jButton22" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton24" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnFabricaLimpiar" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnFabricaActualizar" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="40" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jButton23" max="32767" attributes="0"/>
-                              <Component id="jButton25" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnFabricaGuardar" max="32767" attributes="0"/>
+                              <Component id="btnFabricaEliminar" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                       </Group>
@@ -1926,8 +1953,8 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jButton22" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton23" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnFabricaLimpiar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnFabricaGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -1935,8 +1962,8 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace pref="17" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jButton24" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton25" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnFabricaActualizar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnFabricaEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                               </Group>
@@ -2031,7 +2058,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton22">
+                <Component class="javax.swing.JButton" name="btnFabricaLimpiar">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="1"/>
@@ -2041,8 +2068,11 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Limpiar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFabricaLimpiarActionPerformed"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton23">
+                <Component class="javax.swing.JButton" name="btnFabricaGuardar">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="1"/>
@@ -2052,8 +2082,11 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Guardar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFabricaGuardarActionPerformed"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton24">
+                <Component class="javax.swing.JButton" name="btnFabricaActualizar">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="1"/>
@@ -2063,8 +2096,11 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Actualizar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFabricaActualizarActionPerformed"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton25">
+                <Component class="javax.swing.JButton" name="btnFabricaEliminar">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="1"/>
@@ -2074,6 +2110,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Eliminar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFabricaEliminarActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -2530,7 +2569,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel18" max="32767" attributes="0"/>
+                      <Component id="jPanel18" pref="143" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane7" min="-2" pref="308" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -2546,11 +2585,10 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTable" name="jTable7">
+                <Component class="javax.swing.JTable" name="tblUsuario">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="4" rowCount="0">
-                        <Column editable="true" title="Codigo usuario" type="java.lang.Object"/>
+                      <Table columnCount="3" rowCount="0">
                         <Column editable="true" title="Nombre" type="java.lang.Object"/>
                         <Column editable="true" title="Correo" type="java.lang.Object"/>
                         <Column editable="true" title="Contrase&#xf1;a" type="java.lang.Object"/>
@@ -2558,11 +2596,6 @@
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                       <TableColumnModel selectionModel="0">
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="30" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
                         <Column maxWidth="-1" minWidth="-1" prefWidth="50" resizable="true">
                           <Title/>
                           <Editor/>
@@ -2584,6 +2617,9 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblUsuarioMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -2599,16 +2635,23 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel41" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel43" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtUsuarioCorreo" pref="156" max="32767" attributes="0"/>
-                              <Component id="txtUsuarioCodigo" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtUsuarioPassword" min="-2" pref="166" max="-2" attributes="0"/>
-                              <Component id="jLabel44" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="jLabel43" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="txtUsuarioCorreo" max="32767" attributes="0"/>
+                                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="txtUsuarioPassword" min="-2" pref="166" max="-2" attributes="0"/>
+                                      <Component id="jLabel44" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="txtUsuarioNombre" alignment="1" min="-2" pref="166" max="-2" attributes="0"/>
                                   <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
@@ -2616,13 +2659,13 @@
                           </Group>
                           <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jButton31" max="32767" attributes="0"/>
-                              <Component id="jButton30" max="32767" attributes="0"/>
+                              <Component id="btnUsuarioActualizar" max="32767" attributes="0"/>
+                              <Component id="btnUsuarioLimpiar" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace pref="40" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jButton32" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jButton33" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnUsuarioGuardar" alignment="0" max="32767" attributes="0"/>
+                              <Component id="btnUsuarioEliminar" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                       </Group>
@@ -2631,33 +2674,24 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jButton30" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton32" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="btnUsuarioLimpiar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnUsuarioGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jLabel41" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel42" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="txtUsuarioNombre" max="32767" attributes="0"/>
-                                      <Component id="txtUsuarioCodigo" min="-2" pref="28" max="-2" attributes="0"/>
-                                  </Group>
+                                  <Component id="txtUsuarioNombre" min="-2" pref="36" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="jButton31" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jButton33" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnUsuarioActualizar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnUsuarioEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                               </Group>
@@ -2680,24 +2714,6 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="jLabel41">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Dialog" size="12" style="1"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="0" green="0" red="0" type="rgb"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Codigo Uusario"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="txtUsuarioCodigo">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Dialog" size="12" style="1"/>
-                    </Property>
-                  </Properties>
-                </Component>
                 <Component class="javax.swing.JLabel" name="jLabel42">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -2752,7 +2768,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton30">
+                <Component class="javax.swing.JButton" name="btnUsuarioLimpiar">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="1"/>
@@ -2762,8 +2778,11 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Limpiar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUsuarioLimpiarActionPerformed"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton31">
+                <Component class="javax.swing.JButton" name="btnUsuarioActualizar">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="1"/>
@@ -2773,8 +2792,11 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Actualizar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUsuarioActualizarActionPerformed"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton32">
+                <Component class="javax.swing.JButton" name="btnUsuarioGuardar">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="1"/>
@@ -2784,8 +2806,11 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Guardar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUsuarioGuardarActionPerformed"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton33">
+                <Component class="javax.swing.JButton" name="btnUsuarioEliminar">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Dialog" size="12" style="1"/>
@@ -2795,6 +2820,9 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="Eliminar"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUsuarioEliminarActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

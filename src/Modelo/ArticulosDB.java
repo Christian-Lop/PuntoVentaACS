@@ -8,8 +8,7 @@ package Modelo;
  *
  * @author Christian
  */
-public class ArticulosDB {
-    private int id;
+public class ArticulosDB {    
     private String codigo;
     private String nombre;
     private String proveedor;
@@ -20,22 +19,13 @@ public class ArticulosDB {
     public ArticulosDB() {
     }
 
-    public ArticulosDB(int id, String codigo, String nombre, String proveedor, int ingresa, String descripcion, double precio) {
-        this.id = id;
+    public ArticulosDB(String codigo, String nombre, String proveedor, int ingresa, String descripcion, double precio) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.proveedor = proveedor;
         this.ingresa = ingresa;
         this.descripcion = descripcion;
         this.precio = precio;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getCodigo() {
@@ -84,7 +74,6 @@ public class ArticulosDB {
 
     public void setPrecio(double precio) {
         this.precio = precio;
-    }
-    
+    }        
     
 }
