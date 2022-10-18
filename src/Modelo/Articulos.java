@@ -121,4 +121,24 @@ public class Articulos {
             }
         }
     }
+    
+    public ArticulosDB BusArticulos(String codigo){
+        ArticulosDB artDB = new ArticulosDB();
+        String mysql = "SELECT * FROM articulos WHERE codigo = ?";
+        try {
+            con = cnx.getConnection();
+            ps = con.prepareStatement(mysql);
+            ps.setString(1, codigo);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                artDB.setNombre(rs.getString("Nombre"));
+                artDB.setIngresa(rs.getInt("Ingresa"));
+                artDB.setPrecio(rs.getDouble("Precio"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+        return artDB;
+    }
+    
 }

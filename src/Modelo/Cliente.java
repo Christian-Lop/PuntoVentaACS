@@ -112,5 +112,25 @@ public class Cliente {
         }
     }
     
+    public ClienteDB BuscarClientess(String NIT){
+        ClienteDB clienteDB = new ClienteDB();
+        String mysql = "SELECT * FROM clientes WHERE NIT = ?";
+        try {
+            con = cnx.getConnection();
+            ps = con.prepareStatement(mysql);
+            ps.setString(1, NIT);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                clienteDB.setNombre(rs.getString("Nombre"));
+                clienteDB.setTelefono(rs.getInt("Telefono"));
+                clienteDB.setDireccion_envio(rs.getString("Direccion_envio"));
+                
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+        return clienteDB;
+    }
+    
 }
 
