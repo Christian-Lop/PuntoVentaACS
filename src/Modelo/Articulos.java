@@ -139,6 +139,51 @@ public class Articulos {
             System.out.println(e.toString());
         }
         return artDB;
+    }   
+    
+    public InformacionDB BusInformacion(){
+        InformacionDB infoDB = new InformacionDB();
+        String mysql = "SELECT * FROM informacion";
+        try {
+            con = cnx.getConnection();
+            ps = con.prepareStatement(mysql);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                infoDB.setNIT(rs.getInt("NIT"));
+                infoDB.setNombre(rs.getString("Nombre"));
+                infoDB.setTelefono(rs.getInt("Telefono"));
+                infoDB.setDireccion(rs.getString("Direccion"));
+                infoDB.setCorreo(rs.getString("Correo"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+        }
+        return infoDB;
     }
+    
+    public boolean actualizarInforma(InformacionDB infoDB){
+        String mysql = "UPDATE informacion SET NIT = ?, nombre = ?, telefono = ?, direccion = ?, correo = ? WHERE NIT = ?";
+        try {
+            con = cnx.getConnection();
+            ps = con.prepareStatement(mysql);
+            ps.setInt(1, infoDB.getNIT());
+            ps.setString(2, infoDB.getNombre());
+            ps.setInt(3, infoDB.getTelefono());
+            ps.setString(4, infoDB.getDireccion());
+            ps.setString(5, infoDB.getCorreo());
+            ps.execute();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.toString());
+            return false;
+        }finally{
+            try {
+                con.close();
+            } catch (SQLException e) {
+                System.out.println(e.toString());
+            }
+        }
+    }
+    
     
 }
